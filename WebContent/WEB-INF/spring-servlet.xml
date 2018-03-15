@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans  
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc
+	    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!--
+		No need to define any tag for these annotation: 
+		
+		@Controller 		: For Controller class
+		@RestController 	: For define controller which sends response as JSON (@RestController = @Controller + @ResponseBody)
+		@Service 			: For Service class
+		@Repository			: For Repository class
+		@RequestMapping		: To assign url for API
+		@RequestParam		: For request parameters. Like: /url?param1=value1&param2=value2
+		@PathVariable		: For request path variables. Like: /url/variable1/variable2
+		@ModelAttribute		: To retrieve Objects, generally forms send objects
+		@RequestHeader		: To retrieve header
+		@RequestBody		: To map request JSON to Object
+		@ResponseBody		: To send response Object as JSON
+	-->
+	
+	<!-- declares support for general annotations such as @Required, @Autowired, @PostConstruct -->
+	<!-- You are just enabling autowiring, you still have to define all specified definitions in your .xml file -->
+	<context:annotation-config />	
+	
+	<!-- Spring will scan this folder and find out the bean (annotated with @Component) and register it in Spring container. -->
+	<!-- Spring will automatically define all beans which have @Component annotation -->
+	<context:component-scan base-package="com.spring" />
+
+	<!-- http://howtodoinjava.com/spring/spring-mvc/spring-mvc-difference-between-contextannotation-config-vs-contextcomponent-scan/ -->
+	
+	<!-- declares explicit support for annotation-driven MVC controllers (i.e. @RequestMapping, @Controller,
+	     although support for those is the default behaviour), as well as adding support for declarative validation
+	     via @Valid and message body marshalling with @RequestBody/ResponseBody. -->
+	<!-- <mvc:annotation-driven /> -->
+
+	<!-- Scan js/css/images and other static pages -->
+	<!-- The <mvc:resources/> tag is a new feature coming in Spring Framework 3.0.4 -->
+	<!-- <mvc:resources location="/WEB-INF/" mapping="/static/**"/> -->
+	
+	<!-- Map simple view name such as "test" into /WEB-INF/test.jsp -->
+	<!-- To add prefix and suffix along with the value returned by controller -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+</beans>
